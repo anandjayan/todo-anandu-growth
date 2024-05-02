@@ -23,6 +23,12 @@ button{
   font-size: 1rem;
   background-color: rgb(24, 133, 234);
   cursor: pointer;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+button:hover{
+  transform: scale(1.05);
 }
 
 .logo{
@@ -72,7 +78,7 @@ button{
   justify-content: center;
   gap: 1rem;
   border-right: 1px solid gray;
-  max-height: 80vh;
+  max-height: 90vh;
   position: sticky;
   top: 0;
 }
@@ -96,6 +102,7 @@ input, select{
   outline: none;
   border: 1px solid rgb(77, 75, 75);
   border-radius: 5px;
+  font-size: 1rem;
 }
 
 form button{
@@ -140,4 +147,46 @@ form button{
 .todoactions{
   display: flex;
   gap: 1rem;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .todo{
+    flex-direction: column;
+    gap: 3rem;
+    max-height: 80vh;
+
+  }
+
+  .leftsection{
+    padding: 5rem 0.5rem;
+    
+  }
+
+  .navbar p{
+     font-size: 1rem;
+  }
+
+  
+
+  .search-filter{
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 0.25rem;
+    
+  }
+
+  form button{
+    padding: 0.5rem;
+  }
+
+  form{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .logo{
+    padding-right:0.5rem ;
+  }
 }
