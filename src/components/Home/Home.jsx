@@ -8,20 +8,29 @@ import { useState, useEffect } from 'react';
 
 const Home = () => {
   const [Input, setInput] = useState("");
+  const [Description, setDescription] = useState("");
   // console.log(Input);
   const [Todos, setTodos] = useState([]);
   const [user] = useAuthState(auth);
   
-  // function addtodo adds the todoname,ststus etc to db 
+  // function addtodo adds the todoname,status etc to db
+  //todos are added randomly so to add it in order we can use severtimestamp and use query() to desplay it in desc order 
   const addTodo =(event)=>{
     event.preventDefault();
+    if (!Input.trim() || (!Input.trim() && !Description.trim())) {
+      alert("Task name is required. ");
+      return;
+    }
     addDoc(collection(db, `user/${user.uid}/todos`), {
       todoName: Input,
+      description: Description,
       status: false,
-      
+      removed: false,
+      fav: false,
 
-    }).then(()=> alert("Task Added")).catch((err)=> alert(err.message));
+    }).then(()=> alert("Task is Added")).catch((err)=> alert(err.message));
     setInput("");
+    setDescription("");
   };
 
   //  onSnapshot, changes in collection is tracked and returns a snapshot
@@ -33,6 +42,9 @@ const Home = () => {
           id : doc.id,
           todoName : doc.data().todoName,
           status: doc.data().status,
+          description: doc.data().description,
+          removed: doc.data().removed,
+          fav: doc.data().fav,
        })));
     });
    }
@@ -102,7 +114,7 @@ const Home = () => {
             <h1>Add To Do</h1>
             <p>The To-Do app integrates Firebase to store user data, ensuring seamless synchronization across devices. It offers Google authentication, enabling users to securely sign up and access their personalized to-do lists with ease.</p>
             <input value={Input} onChange={e=>setInput(e.target.value)} placeholder='Enter a task' type="text"  />
-            <input placeholder='description' type="text" />
+            <input value={Description} onChange={e=>setDescription(e.target.value)} placeholder='description' type="text" />
             <button onClick={addTodo}>Add</button>
         </div>
 
@@ -129,7 +141,7 @@ const Home = () => {
               <div className="todocard" key={Todo?.id}>
                 <div className="todoitem">
                   <h2 className={`${Todo?.status ? 'completed' : 'red'}`}>{Todo?.todoName}</h2>
-                  <p>from lulu</p>
+                  <p className={`${Todo?.status ? 'completed' : ''}`}>{Todo?.description}</p>
                 </div>
                 <div className="todoactions">
                 
