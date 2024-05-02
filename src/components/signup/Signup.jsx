@@ -34,7 +34,7 @@ const Signup = () => {
         <div className="left">
           <nav className='lefttop'>
             <img src="src\assets\logoimg.png" alt="logo" />
-            
+            <p>anandu d j</p>
           </nav>
           <div className='leftbottom'>
             <h1>LOGIN</h1>

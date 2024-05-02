@@ -157,6 +157,7 @@ const Home = () => {
     <div className='hero'>
       <nav className='navbar'>
          <img src="src\assets\logoimg.png" alt="logo" className='logo' />
+         
          <div className='logout'>
             
             <p>Hello {user?.displayName} !</p>
