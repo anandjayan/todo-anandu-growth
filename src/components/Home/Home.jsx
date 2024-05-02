@@ -118,10 +118,10 @@ const Home = () => {
     
 
     //performs filteration
-    const matchesFilter = filter === "all" ||
-       (filter === "fav" && Todo?.fav) ||
-       (filter === "comp" && Todo?.status) ||
-       (filter === "deleted" && Todo?.removed);
+    const matchesFilter = (filter === "all" && !Todo?.removed) ||
+    (filter === "fav" && Todo?.fav) ||
+    (filter === "comp" && Todo?.status) ||
+    (filter === "deleted" && Todo?.removed);
 
        
     
@@ -188,7 +188,7 @@ const Home = () => {
                 <option value="all">All</option>
                 <option value="fav">Favourites</option>
                 <option value="comp">Completed</option>
-                <option value="deleted">Deleted</option>
+                <option value="deleted">Removed</option>
               </select>
               <button onChange={handleFilterChange} type="submit" name="filter">Filter</button>
             </form>
@@ -197,9 +197,9 @@ const Home = () => {
           <div className="todoList">
             {filteredTodos?.map(Todo =>(
                //if removed is true, then the card is not rendered, its not deleted fron db
-               !Todo?.removed && (
+               
              
-              <div className="todocard" key={Todo?.id}>
+              <div  className={`todocard ${Todo?.removed ? 'card-color' : ''}`} key={Todo?.id}>
                 <div className="todoitem">
                   <h2 className={`${Todo?.status ? 'completed' : 'red'}`}>{Todo?.todoName}</h2>
                   <p className={`${Todo?.status ? 'completed' : ''}`}>{Todo?.description}</p>
@@ -222,7 +222,7 @@ const Home = () => {
                 
                 
               </div>
-              )
+              
             
 
             ))}

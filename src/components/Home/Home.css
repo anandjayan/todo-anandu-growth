@@ -140,8 +140,10 @@ form button{
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  padding: 0 0.5rem;
   margin: 1rem 0;
   border-bottom: 1px solid gray;
+  border-radius: 5px;
 }
 
 .todoactions{
@@ -179,6 +181,10 @@ i {
 
 i:hover {
   transform: scale(1.30);
+}
+
+.card-color{
+  background-color: #ef9999e4;
 }
 
 
