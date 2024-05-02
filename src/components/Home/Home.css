@@ -187,6 +187,11 @@ i:hover {
   background-color: #ef9999e4;
 }
 
+footer{
+  display: flex;
+  justify-content: center;
+}
+
 
 
 

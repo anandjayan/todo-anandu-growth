@@ -153,7 +153,7 @@ const Home = () => {
     
   }
  
-  return (
+  return (<>
     <div className='hero'>
       <nav className='navbar'>
          <img src="src\assets\logoimg.png" alt="logo" className='logo' />
@@ -238,7 +238,10 @@ const Home = () => {
      
       
     </div>
-
+    <footer>
+      <p>© {new Date().getFullYear()} Anandu D Jayan. All rights reserved.</p>
+    </footer>
+    </>
 
   )
 }
