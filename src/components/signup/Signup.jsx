@@ -40,6 +40,7 @@ const Signup = () => {
             <h1>LOGIN</h1>
             <p>The To-Do app integrates Firebase to store user data, ensuring seamless synchronization across devices. It offers Google authentication, enabling users to securely sign up and access their personalized to-do lists with ease.</p>
             <a href="" onClick={handleClick}><img src="src\assets\google.png" alt="google" className='logo' /></a>
+            
           </div>
           
         </div>

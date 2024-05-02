@@ -1,0 +1,143 @@
+.hero{
+  /* padding: 1rem; */
+  font-size: 1.5rem;
+  min-height: 100vh;
+  /* width: 100%; */
+  
+}
+
+.logout button{
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: rgb(234, 24, 24);
+  color: white;
+  cursor: pointer;
+}
+
+button{
+  padding: 0.5rem 7rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: rgb(24, 133, 234);
+  cursor: pointer;
+}
+
+.logo{
+  height: 3rem;
+}
+
+.navbar{
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px solid gray;
+  padding: 1rem;
+  z-index: 99;
+  
+}
+
+
+
+.logout{
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.logout img{
+  border-radius: 50%;
+  height: 3rem;
+}
+
+.todo{
+  min-height: 80vh;
+  display: flex;
+  padding: 0.5rem;
+  
+}
+
+.leftsection{
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+  text-align: center;
+  /* background-color: blue; */
+  padding: 2rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border-right: 1px solid gray;
+  max-height: 80vh;
+  position: sticky;
+  top: 0;
+}
+
+.leftsection p{
+  font-size: 1rem;
+}
+.rightsection{
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+  /* align-items: center;
+  justify-content: space-between; */
+  /* background-color: rgb(0, 0, 106); */
+  padding: 2rem;
+}
+
+input, select{
+  padding: 0.5rem;
+  width: 18rem;
+  outline: none;
+  border: 1px solid rgb(77, 75, 75);
+  border-radius: 5px;
+}
+
+form button{
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: rgb(56, 162, 38);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  margin: 0 1rem;
+}
+
+
+
+
+
+.search-filter{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* flex-direction: column; */
+
+
+}
+
+.todoList{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.todocard{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 1rem 0;
+  border-bottom: 1px solid gray;
+}
+
+.todoactions{
+  display: flex;
+  gap: 1rem;
+}
