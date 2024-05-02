@@ -189,7 +189,12 @@ i:hover {
 
 footer{
   display: flex;
+  align-items: center;
   justify-content: center;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  width: 100%;
 }
 
 
@@ -215,7 +220,16 @@ footer{
      font-size: 1rem;
   }
 
-  
+  h2{
+    font-size:1.5rem;
+  }
+  p{
+    font-size: 0.80rem;
+  }
+
+  .todoactions{
+    gap: 1rem;
+  }
 
   .search-filter{
     flex-direction: column;
@@ -236,5 +250,9 @@ footer{
 
   .logo{
     padding-right:0.5rem ;
+  }
+
+  i{
+    font-size: 1rem;
   }
 }
