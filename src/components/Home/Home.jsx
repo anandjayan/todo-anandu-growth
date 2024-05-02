@@ -156,7 +156,7 @@ const Home = () => {
   return (<>
     <div className='hero'>
       <nav className='navbar'>
-         <img src="src\assets\logoimg.png" alt="logo" className='logo' />
+         <img src="/logoimg.png" alt="logo" className='logo' />
          
          <div className='logout'>
             
