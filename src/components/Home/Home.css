@@ -155,13 +155,37 @@ form button{
 }
 
 .red {
-  color: red;
+  color: rgb(255, 0, 0);
+}
+.pink {
+  color: rgb(255, 0, 217);
+}
+
+.black{
+  color: black;
 }
 
 .completed{
   text-decoration: line-through;
 }
 
+.delete-remove-icon:hover {
+  color: rgb(176, 0, 0);
+}
+
+i {
+  transition: transform 0.3s ease;
+}
+
+i:hover {
+  transform: scale(1.30);
+}
+
+
+
+
+
+/* responsiveness */
 
 @media only screen and (max-width: 600px) {
   .todo{

@@ -1,6 +1,6 @@
 import './Home.css';
 import {useAuthState} from 'react-firebase-hooks/auth';
-import { addDoc, collection, onSnapshot, updateDoc, doc } from 'firebase/firestore';
+import { addDoc, collection, onSnapshot, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import {auth, db} from '../signup/config.js';
 import { useState, useEffect } from 'react';
 
@@ -28,7 +28,7 @@ const Home = () => {
       removed: false,
       fav: false,
 
-    }).then(()=> alert("Task is Added")).catch((err)=> alert(err.message));
+    }).catch((err)=> alert(err.message));
     setInput("");
     setDescription("");
   };
@@ -52,29 +52,59 @@ const Home = () => {
 
   //function to complete a task
   const completeTodo =(id, status)=>{
-    const newStatus = !status; //this toggles the current status
+    const changeStatus = !status; //this toggles the current status
     updateDoc(doc(db, `user/${user.uid}/todos/${id}`),{
-      status: newStatus,
+      status: changeStatus,
     });
   };
 
 
   //function to delete a task (not from database)
 
+  const removeTodo =(id, remove)=>{
+    const changeRemove = !remove; //this toggles the current status
+    updateDoc(doc(db, `user/${user.uid}/todos/${id}`),{
+      removed: changeRemove,
+    });
+  };
+
+
+
+
+  
+    //function to favourite a todo
+
+    const favTodo =(id, favourite)=>{
+      const changeFavourite = !favourite; //toggles fav
+      updateDoc(doc(db, `user/${user.uid}/todos/${id}`),{
+        fav: changeFavourite,
+      });
+    };
 
 
 
 
 
   //function to delete the item permanently from db
+ 
+   const deleteTodo =(id)=>{
+    let confirmDelete = confirm("This will permanently delete the task!");
+    if(confirmDelete){
+      deleteDoc(doc(db, `user/${user.uid}/todos/${id}`),{
+
+    })
+    }else{
+      //nothing happens 
+    }
+    
+   }
+
+
+   //function to search
 
 
 
-
-
-
-  //function to favourite a todo
-
+   //function to filter
 
 
   
@@ -89,7 +119,7 @@ const Home = () => {
        localStorage.clear();
        window.location.reload();
     }else{
-      //nothing happens
+      //nothing happens 
     }
     
   }
@@ -137,7 +167,9 @@ const Home = () => {
 
           <div className="todoList">
             {Todos?.map(Todo =>(
-
+               //if removed is true, then the card is not rendered, its not deleted fron db
+               !Todo?.removed && (
+             
               <div className="todocard" key={Todo?.id}>
                 <div className="todoitem">
                   <h2 className={`${Todo?.status ? 'completed' : 'red'}`}>{Todo?.todoName}</h2>
@@ -145,11 +177,24 @@ const Home = () => {
                 </div>
                 <div className="todoactions">
                 
-                <i onClick={()=> completeTodo(Todo.id, Todo.status)}className={`fa-solid fa-check-double complete ${Todo?.status ? 'green' : 'red'}`}></i>
-                <i className="fa-solid fa-heart heart" ></i>
-                <i className="fa-solid fa-ban delete"></i> 
+                <i onClick={()=> completeTodo(Todo?.id, Todo?.status)}className={`fa-solid fa-square-check complete ${Todo?.status ? 'green' : 'red'}`}></i>
+
+
+                <i onClick={()=> favTodo(Todo?.id, Todo?.fav)}className={`fa-solid fa-heart heart ${Todo?.fav ? 'pink' : 'black'}`} ></i>
+                
+                
+                <i onClick={()=> removeTodo(Todo?.id, Todo?.removed)}className={`fa-solid fa-circle-minus delete-remove-icon ${Todo?.removed ? 'red' : 'black'}`}></i> 
+
+
+                <i onClick={()=>deleteTodo(Todo?.id)} className="fa-solid fa-trash-can delete-remove-icon"></i>
+
+
                 </div>
-           </div>
+                
+                
+              </div>
+              )
+            
 
             ))}
 
