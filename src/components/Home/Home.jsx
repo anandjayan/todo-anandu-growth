@@ -1,11 +1,43 @@
 import './Home.css';
 import {useAuthState} from 'react-firebase-hooks/auth';
-import {auth} from '../signup/config.js';
+import { addDoc, collection, onSnapshot } from 'firebase/firestore';
+import {auth, db} from '../signup/config.js';
+import { useState, useEffect } from 'react';
 
 
 
 const Home = () => {
+  const [Input, setInput] = useState("");
+  // console.log(Input);
+  const [Todos, setTodos] = useState([]);
   const [user] = useAuthState(auth);
+  
+  // function addtodo adds the todoname,ststus etc to db 
+  const addTodo =(event)=>{
+    event.preventDefault();
+    addDoc(collection(db, `user/${user.uid}/todos`), {
+      todoName: Input,
+      status: false,
+
+    }).then(()=> alert("Task Added")).catch((err)=> alert(err.message));
+    setInput("");
+  };
+
+  //  onSnapshot, changes in collection is tracked and returns a snapshot
+  useEffect(()=>{
+    onSnapshot(collection(db, `user/${user.uid}/todos`),(snapshot)=>{
+       setTodos(snapshot.docs.map((doc)=>({
+          id : doc.id,
+          todoName : doc.data().todoName,
+          status: doc.data().status,
+       })))
+    })
+  },[user])
+
+  
+  
+  
+  // this function logs out the user
   const logout =()=>{
 
     let result = confirm("Are you sure you want to logout?");
@@ -38,9 +70,9 @@ const Home = () => {
         <div className="leftsection">
             <h1>Add To Do</h1>
             <p>The To-Do app integrates Firebase to store user data, ensuring seamless synchronization across devices. It offers Google authentication, enabling users to securely sign up and access their personalized to-do lists with ease.</p>
-            <input placeholder='Enter a task' type="text"  />
+            <input value={Input} onChange={e=>setInput(e.target.value)} placeholder='Enter a task' type="text"  />
             <input placeholder='description' type="text" />
-            <button>Add</button>
+            <button onClick={addTodo}>Add</button>
         </div>
 
         <div className="rightsection">
@@ -61,17 +93,25 @@ const Home = () => {
           </div>
 
           <div className="todoList">
-           <div className="todocard">
-            <div className="todoitem">
-              <h2>Buy Apple</h2>
-              <p>from lulu</p>
-            </div>
-            <div className="todoactions">
-             <i className="fa-solid fa-check-double complete"></i>
-             <i className="fa-solid fa-heart heart"></i>
-             <i className="fa-solid fa-ban delete"></i> 
-            </div>
+            {Todos?.map(Todo =>(
+
+              <div className="todocard" key={Todo?.id}>
+                <div className="todoitem">
+                  <h2>{Todo?.todoName}</h2>
+                  <p>from lulu</p>
+                </div>
+                <div className="todoactions">
+                
+                <i className={`fa-solid fa-check-double complete ${Todo?.status ? 'green' : 'red'}`}></i>
+                <i className="fa-solid fa-heart heart" ></i>
+                <i className="fa-solid fa-ban delete"></i> 
+                </div>
            </div>
+
+            ))}
+
+            
+           
            
           </div>
         </div>
