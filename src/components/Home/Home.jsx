@@ -12,9 +12,14 @@ const Home = () => {
   // console.log(Input);
   const [Todos, setTodos] = useState([]);
   const [user] = useAuthState(auth);
+
+
+  //for search and filter
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filter, setFilter] = useState("all");
   
   // function addtodo adds the todoname,status etc to db
-  //todos are added randomly so to add it in order we can use severtimestamp and use query() to desplay it in desc order 
+  //todos are added randomly so to add it in order we can use severtimestamp and use query() to desplay it in desc order. add later.  
   const addTodo =(event)=>{
     event.preventDefault();
     if (!Input.trim() || (!Input.trim() && !Description.trim())) {
@@ -59,7 +64,7 @@ const Home = () => {
   };
 
 
-  //function to delete a task (not from database)
+  //function to remove a task (not from database)
 
   const removeTodo =(id, remove)=>{
     const changeRemove = !remove; //this toggles the current status
@@ -100,13 +105,37 @@ const Home = () => {
    }
 
 
-   //function to search
+   //function to handle search
+   const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+   };
+
+   
+   const filteredTodos = Todos.filter(Todo => {
+
+    //performs search
+    const matchesSearchTerm = Todo?.todoName.toLowerCase().includes(searchTerm.toLowerCase());
+    
+
+    //performs filteration
+    const matchesFilter = filter === "all" ||
+       (filter === "fav" && Todo?.fav) ||
+       (filter === "comp" && Todo?.status) ||
+       (filter === "deleted" && Todo?.removed);
+
+       
+    
+    return matchesSearchTerm && matchesFilter;
+    
+  });
 
 
-
-   //function to filter
-
-
+   //function to target filter change
+   const handleFilterChange = (event) => {
+    setFilter(event.target.value);
+   };
+  
+   
   
   
   
@@ -153,20 +182,20 @@ const Home = () => {
             <h1>Tasks To Do</h1>
           </div>
           <div className='search-filter'>
-            <input placeholder='Search...' type="text"  />
+            <input placeholder='Search...' onChange={handleSearchChange} type="text"  />
             <form action="">
-              <select id="filter" name="filter-options">
+              <select id="filter" name="filter-options" onChange={handleFilterChange}>
                 <option value="all">All</option>
                 <option value="fav">Favourites</option>
                 <option value="comp">Completed</option>
                 <option value="deleted">Deleted</option>
               </select>
-              <button type="submit" name="filter">Filter</button>
+              <button onChange={handleFilterChange} type="submit" name="filter">Filter</button>
             </form>
           </div>
 
           <div className="todoList">
-            {Todos?.map(Todo =>(
+            {filteredTodos?.map(Todo =>(
                //if removed is true, then the card is not rendered, its not deleted fron db
                !Todo?.removed && (
              
