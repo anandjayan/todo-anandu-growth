@@ -33,19 +33,20 @@ const Signup = () => {
       
         <div className="left">
           <nav className='lefttop'>
-            <img src="src\assets\logoimg.png" alt="logo" />
+            <img src="/logoimg.png" alt="logo" />
+           
             <p>anandu d j</p>
           </nav>
           <div className='leftbottom'>
             <h1>LOGIN</h1>
             <p>The To-Do app integrates Firebase to store user data, ensuring seamless synchronization across devices. It offers Google authentication, enabling users to securely sign up and access their personalized to-do lists with ease.</p>
-            <a href="" onClick={handleClick}><img src="src\assets\google.png" alt="google" className='logo' /></a>
+            <a href="" onClick={handleClick}><img src="/google.png" alt="google" className='logo' /></a>
             
           </div>
           
         </div>
         <div className="right">
-          <img src="src\assets\heroimg.png" alt="heroimg" className='heroimg' />
+          <img src="/heroimg.png" alt="heroimg" className='heroimg' />
         </div> 
       
      
