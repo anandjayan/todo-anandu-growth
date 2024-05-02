@@ -151,11 +151,15 @@ form button{
 
 /* for toggle todo actions */
 .green {
-  color: green;
+  color: rgb(46, 240, 46);
 }
 
 .red {
   color: red;
+}
+
+.completed{
+  text-decoration: line-through;
 }
 
 

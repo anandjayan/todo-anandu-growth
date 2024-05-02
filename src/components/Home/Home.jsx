@@ -1,6 +1,6 @@
 import './Home.css';
 import {useAuthState} from 'react-firebase-hooks/auth';
-import { addDoc, collection, onSnapshot } from 'firebase/firestore';
+import { addDoc, collection, onSnapshot, updateDoc, doc } from 'firebase/firestore';
 import {auth, db} from '../signup/config.js';
 import { useState, useEffect } from 'react';
 
@@ -18,6 +18,7 @@ const Home = () => {
     addDoc(collection(db, `user/${user.uid}/todos`), {
       todoName: Input,
       status: false,
+      
 
     }).then(()=> alert("Task Added")).catch((err)=> alert(err.message));
     setInput("");
@@ -25,14 +26,44 @@ const Home = () => {
 
   //  onSnapshot, changes in collection is tracked and returns a snapshot
   useEffect(()=>{
-    onSnapshot(collection(db, `user/${user.uid}/todos`),(snapshot)=>{
+    if (user && user.uid) {
+
+      onSnapshot(collection(db, `user/${user.uid}/todos`),(snapshot)=>{
        setTodos(snapshot.docs.map((doc)=>({
           id : doc.id,
           todoName : doc.data().todoName,
           status: doc.data().status,
-       })))
-    })
-  },[user])
+       })));
+    });
+   }
+  },[user]);
+
+  //function to complete a task
+  const completeTodo =(id, status)=>{
+    const newStatus = !status; //this toggles the current status
+    updateDoc(doc(db, `user/${user.uid}/todos/${id}`),{
+      status: newStatus,
+    });
+  };
+
+
+  //function to delete a task (not from database)
+
+
+
+
+
+
+  //function to delete the item permanently from db
+
+
+
+
+
+
+  //function to favourite a todo
+
+
 
   
   
@@ -97,12 +128,12 @@ const Home = () => {
 
               <div className="todocard" key={Todo?.id}>
                 <div className="todoitem">
-                  <h2>{Todo?.todoName}</h2>
+                  <h2 className={`${Todo?.status ? 'completed' : 'red'}`}>{Todo?.todoName}</h2>
                   <p>from lulu</p>
                 </div>
                 <div className="todoactions">
                 
-                <i className={`fa-solid fa-check-double complete ${Todo?.status ? 'green' : 'red'}`}></i>
+                <i onClick={()=> completeTodo(Todo.id, Todo.status)}className={`fa-solid fa-check-double complete ${Todo?.status ? 'green' : 'red'}`}></i>
                 <i className="fa-solid fa-heart heart" ></i>
                 <i className="fa-solid fa-ban delete"></i> 
                 </div>
