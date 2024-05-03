@@ -191,7 +191,7 @@ const Home = () => {
                 <option value="comp">Completed</option>
                 <option value="deleted">Removed</option>
               </select>
-              <button onChange={handleFilterChange} type="submit" name="filter">Filter</button>
+              {/* <button onChange={handleFilterChange} type="submit" name="filter">Filter</button> */}
             </form>
           </div>
 

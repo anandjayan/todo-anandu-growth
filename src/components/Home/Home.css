@@ -105,7 +105,7 @@ input, select{
   font-size: 1rem;
 }
 
-form button{
+/* form button{
   padding: 0.5rem;
   border: none;
   border-radius: 5px;
@@ -114,7 +114,7 @@ form button{
   color: rgb(255, 255, 255);
   cursor: pointer;
   margin: 0 1rem;
-}
+} */
 
 
 
@@ -255,4 +255,28 @@ footer{
   i{
     font-size: 1rem;
   }
+
+  .todoList{
+    min-height: 90vh;
+  }
+}
+
+
+@media screen and (min-width: 601px) and (max-width: 1124px) {
+  .todo{
+    flex-direction: column;
+    gap: 3rem;
+    max-height: 60vh;
+
+  }
+
+  .leftsection{
+    padding: 2rem 5rem;
+    min-height: 80vh;
+  }
+
+  .todoList{
+    min-height: 90vh;
+  }
+  
 }
